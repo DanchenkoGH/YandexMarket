@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration monitorInterval="3">
+    <appenders>
+        <File name="FILE" fileName="test.log" append="false">
+            <PatternLayout pattern="%d{HH:mm:ss,SSS} %-5p (%F:%L) %m%n"/>
+        </File>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss,SSS} %p{length=1} %c{1}:%L %m%n"/>
+        </Console>
+    </appenders>
+    <loggers>
+        <root level="DEBUG">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="FILE"/>
+        </root>
+    </loggers>
+</configuration>
