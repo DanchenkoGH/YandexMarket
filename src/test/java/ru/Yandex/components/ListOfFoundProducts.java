@@ -8,9 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.*;
 
-public class ListOfFoundProducts {
-    private WebDriver driver;
-
+public class ListOfFoundProducts extends Element {
     @FindBy(xpath = "//div[contains(@class,'n-snippet-list')]" +
             "/div[contains(@class,'n-snippet-card2 i-bem b-zone b-spy-visible')]")
     private List<WebElement> productList;
@@ -20,7 +18,7 @@ public class ListOfFoundProducts {
     }
 
     public ListOfFoundProducts(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public String getProductName(int productIndex) {
@@ -99,5 +97,4 @@ public class ListOfFoundProducts {
         System.out.println("    Разница между самым дорогим и самым дешевым продуктом - " +
                 (getMapKeyAndMaximumValue(new TreeMap(map)) - getMapKeyAndMinimumValue(new TreeMap(map))));
     }
-
 }

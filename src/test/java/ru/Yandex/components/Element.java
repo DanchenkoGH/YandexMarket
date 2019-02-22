@@ -3,14 +3,18 @@ package ru.Yandex.components;
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.NoSuchElementException;
 
 public class Element {
     WebDriver driver;
-    //WebDriverWait wait = new WebDriverWait(driver, 10);
+    WebDriverWait wait;
+
+    protected Element(WebDriver driver) {
+        this.driver = driver;
+        wait = new WebDriverWait(driver, 10);
+    }
 
     protected void wait(int milliseconds) throws InterruptedException {
         try {
@@ -18,13 +22,6 @@ public class Element {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    public WebElement find(String xPath) {
-        if (!isPresent(xPath))
-            return driver.findElement(By.xpath(xPath));
-        else
-            return null;
     }
 
     public boolean isPresent(String xPath) {
@@ -38,34 +35,52 @@ public class Element {
         return present;
     }
 
-    //1 неявные ожидания
+    public boolean areElementsPresent(By locator) {
+        return driver.findElements(locator).size() > 0;
+    }
+
+
+    public void waitVisiblityOfElement(By locator) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public void waitElementPresent(By locator) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
+    public void waitElementPresence(By locator) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+
     public boolean isElementPresent(By locator) {
         try {
             driver.findElement(locator);
             return true;
         } catch (InvalidSelectorException ex) {
-            //добавить сообщение об ошибке
+            System.out.println("Указан неккоректный локатор. Исправьте и повторите.");
             throw ex;
         } catch (NoSuchElementException ex) {
-            //добавить сообщение об ошибке
+            System.out.println("Элемент на странице не найден.");
             return false;
         }
     }
 
-/*
-    //2 явные ожидания
-    public boolean isElementPresent(By locator) {
+    public void waitElementEnable(By locator) {
+        if (!isElementEnable(locator)) {
+            new Exception("Не удалось дождаться доступность элемента: " + locator);
+        }
+    }
+
+    private boolean isElementEnable(By locator) {
         try {
-            wait.until((WebDriver d) -> d.findElement(locator));
+            driver.findElement(locator).isEnabled();
             return true;
-        } catch (TimeoutException ex) {
-            //добавить сообщение об ошибке
+        } catch (InvalidSelectorException ex) {
+            System.out.println("Указан неккоректный локатор. Исправьте и повторите.");
+            throw ex;
+        } catch (NoSuchElementException ex) {
+            System.out.println("Элемент на странице не найден.");
             return false;
         }
-    }
-*/
-
-    public boolean areElementsPresent(By locator) {
-        return driver.findElements(locator).size() > 0;
     }
 }

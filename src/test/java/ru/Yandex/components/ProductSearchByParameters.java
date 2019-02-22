@@ -1,7 +1,5 @@
 package ru.Yandex.components;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -11,9 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 import ru.Yandex.pages.widgets.ProductDetailWidget;
 
 public class ProductSearchByParameters extends Element {
-    private WebDriver driver;
-    private final static Logger LOG = LogManager.getLogger(ProductSearchByParameters.class);
-
     @FindBy(xpath = "//div/h1")
     private WebElement productHeader;
 
@@ -30,7 +25,7 @@ public class ProductSearchByParameters extends Element {
     private WebElement manufacturerShowAll;
 
     public ProductSearchByParameters(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void init(final WebDriver driver) {
@@ -52,7 +47,6 @@ public class ProductSearchByParameters extends Element {
             if (driver.findElement(By.xpath("//div/fieldset/legend[.='Производитель']/.././/label//div[.='" + one + "']")).isEnabled()) {
                 driver.findElement(By.xpath("//div/fieldset/legend[.='Производитель']/.././/label//div[.='" + one + "']")).click();
             } else {
-                LOG.debug("Продукция производителя, который вы пытаетесь выбрать недоступна для выбора");
                 System.out.println("Продукция производителя, который вы пытаетесь выбрать недоступна для выбора");
             }
             wait(2000);

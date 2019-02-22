@@ -6,20 +6,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.Yandex.pages.widgets.ProductDetailWidget;
 
-public class FilterPanel {
-    private WebDriver driver;
-    WebDriverWait wait;
+public class FilterPanel extends Element {
 
     @FindBy(xpath = "//div[@class='n-filter-panel-dropdown__main']")
     private WebElement filterPanel;
 
     public FilterPanel(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, 10);
+        super(driver);
     }
 
     public void init(final WebDriver driver) {
@@ -28,33 +23,27 @@ public class FilterPanel {
 
     public ProductDetailWidget sortByPrice() throws InterruptedException {
         filterPanel.findElement(By.xpath(".//div[contains(@class, 'n-filter-sorter')]/a[.='по цене']")).click();
-        Thread.sleep(10000);
+        waitElementPresence(By.xpath("//div[@class = 'n-filter-applied-results__content preloadable i-bem preloadable_js_inited' and contains(@style, 'height: auto;')]"));
         return new ProductDetailWidget(driver);
     }
 
     public ProductDetailWidget sortByDescendingPrice() throws InterruptedException {
-
         sortByPrice();
         try {
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(
-                    "//div[contains(@class, 'n-filter-sorter_sort_desc')]")));
+            waitElementPresent(By.xpath("//div[contains(@class, 'n-filter-sorter_sort_desc')]"));
         } catch (TimeoutException ex) {
             sortByPrice();
         }
-
         return new ProductDetailWidget(driver);
     }
 
     public ProductDetailWidget sortByAscendingPrice() throws InterruptedException {
-
         sortByPrice();
         try {
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(
-                    "//div[contains(@class, 'n-filter-sorter_sort_asc')]")));
+            waitElementPresent(By.xpath("//div[contains(@class, 'n-filter-sorter_sort_asc')]"));
         } catch (TimeoutException ex) {
             sortByPrice();
         }
-
         return new ProductDetailWidget(driver);
     }
 }

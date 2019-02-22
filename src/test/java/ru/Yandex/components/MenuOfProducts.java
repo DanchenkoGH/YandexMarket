@@ -1,7 +1,5 @@
 package ru.Yandex.components;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,9 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.Yandex.pages.widgets.ProductDetailWidget;
 
-public class MenuOfProducts {
-    WebDriver driver;
-    private final static Logger LOG = LogManager.getLogger(MenuOfProducts.class);
+public class MenuOfProducts extends Element {
 
     @FindBy(xpath = "//div[@class = 'theme_light']//a[.='Компьютеры']/../..")
     private WebElement productMenu;
@@ -21,7 +17,7 @@ public class MenuOfProducts {
     }
 
     public MenuOfProducts(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public ProductDetailWidget goTo(String item) {

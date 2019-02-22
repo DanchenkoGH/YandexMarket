@@ -66,7 +66,7 @@ public class ProductSpecificationWidget {
 
     public ProductSpecificationWidget(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, 15);
     }
 
     public void init(final WebDriver driver) {

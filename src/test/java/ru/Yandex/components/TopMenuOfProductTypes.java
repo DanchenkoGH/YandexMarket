@@ -9,16 +9,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.Yandex.pages.widgets.ProductTypeWidget;
 
-public class TopMenuOfProductTypes {
-    WebDriver driver;
-
+public class TopMenuOfProductTypes extends Element {
     @FindBy(xpath = "//div[contains(@class,'n-w-tabs__horizontal-tabs-background')]")
     private WebElement topMenuList;
 
     private final static Logger LOG = LogManager.getLogger(TopMenuOfProductTypes.class);
 
     public TopMenuOfProductTypes(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void init(final WebDriver driver) {
