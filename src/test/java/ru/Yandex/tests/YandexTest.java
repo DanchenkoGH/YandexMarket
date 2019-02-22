@@ -27,7 +27,7 @@ public class YandexTest extends BaseTest {
     @Story("Аннотация Story2")
     @Test()
     @Description("Описание теста2")
-    public void testFindLaptop3() throws InterruptedException {
+    public void testFindLaptop2() throws InterruptedException {
         yandexMarket().headerMainWidget.findProduct("Ноутбук HP 15-bw590ur (AMD E2 9000E 1500 MHz/15.6\"/1920x1080/4Gb/500Gb HDD/DVD нет/AMD Radeon R2/Wi-Fi/Bluetooth/DOS)");
         yandexMarket().checkQuestionMark();
     }

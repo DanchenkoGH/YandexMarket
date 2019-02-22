@@ -2,9 +2,8 @@ package ru.Yandex.pages.widgets;
 
 import org.openqa.selenium.WebDriver;
 import ru.Yandex.components.*;
-import ru.Yandex.pages.AbstractPage;
 
-public class ProductDetailWidget{
+public class ProductDetailWidget {
     private WebDriver driver;
     public HeaderMainWidget headerMainWidget;
     public ProductSearchByParameters productSearchByParameters;

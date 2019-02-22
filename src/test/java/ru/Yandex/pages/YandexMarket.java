@@ -1,7 +1,5 @@
 package ru.Yandex.pages;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import ru.Yandex.components.HeaderMainWidget;
 import ru.Yandex.components.TopMenuOfProductTypes;
@@ -12,8 +10,6 @@ import static org.junit.Assert.assertEquals;
 
 public class YandexMarket {
     WebDriver driver;
-
-    private final static Logger LOG = LogManager.getLogger(YandexMarket.class);
 
     public HeaderMainWidget headerMainWidget;
     public TopMenuOfProductTypes topMenuOfProductTypes;
@@ -58,10 +54,9 @@ public class YandexMarket {
     public YandexMarket getProductSpecifications() {
         //Параметры пункта "Питание"
         productDetailWidget.listOfFoundProducts.
-                getProductByIndex(2).
+                getProductByIndex(3).
                 goToSpecificationPage().
                 getProductPowerSpecification();
-
         return new YandexMarket(driver);
     }
 
@@ -79,10 +74,9 @@ public class YandexMarket {
 
         int maximum = productDetailWidget.filterPanel.sortByDescendingPrice().
                 listOfFoundProducts.getFirstProductPrice(1);
+
         System.out.println("Максимальная стоимость продукта: " + maximum);
-
         System.out.println("\nРазница в цене продуктов: " + (maximum - minimum));
-
         return new YandexMarket(driver);
     }
 }
